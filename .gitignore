@@ -6,3 +6,5 @@ test_train.ipynb
 predict.py
 predictor.py
 .DS_Store
+train_config_regression.yaml
+example/
