@@ -1,1 +1,8 @@
+# ignore files
 Image_Enhancement_test.ipynb
+convert_hd_ds_to_tif.ipynb
+test_predict.ipynb
+test_train.ipynb
+predict.py
+predictor.py
+.DS_Store

@@ -13,7 +13,8 @@ import torch
 from torch.utils.data import Dataset, DataLoader, ConcatDataset
 from pytorch3dunet.datasets.hdf5 import _create_padded_indexes
 import pytorch3dunet.augment.transforms as transforms
-from pytorch3dunet.datasets.utils import get_slice_builder, calculate_stats, mirror_pad, ConfigDataset
+from pytorch3dunet.datasets.utils import ConfigDataset
+from pytorch3dunet.datasets.utils import get_slice_builder, calculate_stats, mirror_pad, default_prediction_collate
 from pytorch3dunet.unet3d.utils import get_logger
 
 logger = get_logger('TIFDataset')
@@ -80,7 +81,7 @@ class TIFDataset(ConfigDataset):
             patch_shape = slice_builder_config.get('patch_shape')
             stride_shape = slice_builder_config.get('stride_shape')
             if sum(self.halo_shape) != 0 and patch_shape != stride_shape:
-                logger.warning(f'Found non-zero halo shape {self.halo_shape}. '
+                logger.error(f'Found non-zero halo shape {self.halo_shape}. '
                                f'In this case: patch shape and stride shape should be equal for optimal prediction '
                                f'performance, but found patch_shape: {patch_shape} and stride_shape: {stride_shape}!')
 
@@ -305,6 +306,7 @@ def create_test_loaders_from_config(config):
     # get dataset
     test_datasets = TIFDataset.create_datasets(loaders_config, phase='test')
 
+    # dataloader settings
     num_workers = loaders_config.get('num_workers', 1)
     logger.info(f'Number of workers for the dataloader: {num_workers}')
 
@@ -318,7 +320,7 @@ def create_test_loaders_from_config(config):
 
     # use generator in order to create data loaders lazily one by one
     for test_dataset in test_datasets:
-        logger.info(f'Loading test set from: {test_dataset.file_path}...')
+        logger.info(f'Loading test set from: {test_dataset.raw_file_path}...')
         if hasattr(test_dataset, 'prediction_collate'):
             collate_fn = test_dataset.prediction_collate
         else:

@@ -68,27 +68,27 @@ loaders:
   batch_size: 1
   # how many subprocesses to use for data loading
   num_workers: 4
-    # path to the raw data within the H5
+  # subfolder to the raw data within the file_paths
   raw_internal_path: raw_images
-  # path to the the label data within the H5
+  # subfolder to the the label data within the file_paths
   label_internal_path: ground_truth
   # if use pixel-wise weight map 
   weight_internal_path: null
   # configuration of the train loader
   train:
-    # absolute paths to the training datasets; if a given path is a directory all H5 files ('*.h5', '*.hdf', '*.hdf5', '*.hd5')
+    # absolute paths to the training datasets; if a given path is a directory all H5 files ('*.tif', '*.tiff', '*.TIF', '*.TIFF')
     # inside this this directory will be included as well (non-recursively)
     file_paths:
-        - "/Users/w.zhao/Projects/MemSeg/Dataset/dataset01/train/"
+        - "/Users/w.zhao/Projects/MemSeg/Dataset/raw_memb/train/"
 
     # SliceBuilder configuration, i.e. how to iterate over the input volume patch-by-patch
     slice_builder:
       # SliceBuilder class
       name: SliceBuilder
       # train patch size given to the network (adapt to fit in your GPU mem, generally the bigger patch the better)
-      patch_shape: [16, 128, 128]
+      patch_shape: [32, 256, 256]
       # train stride between patches
-      stride_shape: [32, 32, 32]
+      stride_shape: [16, 128, 128]
 
     # data transformations/augmentations
     transformer:
@@ -122,7 +122,7 @@ loaders:
     # paths to the validation datasets; if a given path is a directory all H5 files ('*.h5', '*.hdf', '*.hdf5', '*.hd5')
     # inside this this directory will be included as well (non-recursively)
     file_paths:
-        - "/Users/w.zhao/Projects/MemSeg/Dataset/dataset01/val"
+        - "/Users/w.zhao/Projects/MemSeg/Dataset/raw_memb/val"
 
     # SliceBuilder configuration
     slice_builder:
@@ -131,7 +131,7 @@ loaders:
       # validation patch (can be bigger than train patch since there is no backprop)
       patch_shape: [16, 128, 128]
       # validation stride (validation patches doesn't need to overlap)
-      stride_shape: [128, 128, 128]
+      stride_shape: [16, 128, 128]
 
     # no data augmentation during validation
     transformer:
