@@ -30,7 +30,7 @@ trainer:
   # max number of epoc0hs
   max_num_epochs: 1
   # max number of iterations
-  max_num_iterations: 100
+  max_num_iterations: 1000
   # model with higher eval score is considered better
   eval_score_higher_is_better: true
 # optimizer configuration

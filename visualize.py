@@ -39,9 +39,8 @@ def rescale(im):
 def display_image(x):
     # x_scaled = np.uint8(255 * (x - x.min()) / x.ptp())
     x_scaled = x
-    # plt.imshow(x, cmap='gray')
-    return Image.fromarray(x_scaled)
-    return 
+    # return plt.imshow(x, cmap='gray')
+    return Image.fromarray(x_scaled) 
     
 def display_slices(images):
     def _show(slice=(0, len(images)-1)):

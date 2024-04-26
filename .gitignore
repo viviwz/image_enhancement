@@ -8,3 +8,7 @@ predictor.py
 .DS_Store
 train_config_regression.yaml
 example/
+*.tif
+test.tif
+test.ome.tif
+data/

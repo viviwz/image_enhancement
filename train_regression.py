@@ -1,3 +1,4 @@
+import sys
 import random
 import torch
 from pytorch3dunet.unet3d.utils import get_logger
@@ -36,8 +37,11 @@ def train_3dunet_regression(config, config_path=None):
 
 def main():
     # Load and log experiment configuration
-    config, config_path = load_config()
-    logger.info(config)
+    if len(sys.argv)>1:
+        config_path = sys.argv[1]
+    else:
+        config, config_path = load_config()
+    logger.info(config_path)
 
     train_3dunet_regression(config_path)
 
