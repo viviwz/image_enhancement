@@ -21,6 +21,7 @@ from dataloader import create_test_loaders_from_config
 
 logger = get_logger("Predict Regression")
 
+
 def predict(config):
     # Load configuration
     if isinstance(config, str):

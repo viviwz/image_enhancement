@@ -4,7 +4,6 @@ import torch
 from pytorch3dunet.unet3d.utils import get_logger
 from pytorch3dunet.unet3d.config import copy_config, load_config
 from pytorch3dunet.unet3d.config import _load_config_yaml as load_config_yaml
-
 from trainer import create_trainer
 
 
